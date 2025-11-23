@@ -1,4 +1,4 @@
-INSERT INTO planets ( name, radius_km, type, mass_kg, orbital_period_days)
+INSERT INTO planets ( planet_name, radius_km, type, mass_kg, orbital_period_days)
 VALUES
     ('Mercury', 2440, 'Terrestrial', 3.30e23, 88),
     ('Venus', 6052, 'Terrestrial', 4.87e24, 225),
@@ -15,7 +15,7 @@ VALUES
     ('Kepler-16 b', 58860, 'Gas Giant', 6.31e26, 228.78); -- (circumbinary)
 
 
-INSERT INTO moons (name, diameter_km, orbital_period_days, planet_id)
+INSERT INTO moons (moon_name, diameter_km, orbital_period_days, planet_id)
 VALUES
     ('Moon', 3474, 27.3, 3),
     ('Phobos', 22.5, 0.319, 4),
