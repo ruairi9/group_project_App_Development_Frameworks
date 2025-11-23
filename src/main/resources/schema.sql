@@ -13,13 +13,19 @@ CREATE TABLE moons (
                          diameter_km INT,
                          orbital_period_days INT,
                          planet_id INT,
-                         FOREIGN KEY (planet_id) REFERENCES planets(planet_id)
+                         CONSTRAINT fk_moon_planet FOREIGN KEY (planet_id)
+                             REFERENCES planets (planet_id)
+                             ON DELETE CASCADE
+                             ON UPDATE CASCADE
 );
 
 CREATE TABLE users (
                          user_id INT PRIMARY KEY AUTO_INCREMENT,
                          username VARCHAR(255) NOT NULL UNIQUE,
                          password VARCHAR(255),
-                         role VARCHAR(10)
+                         role VARCHAR(10),
+                         enabled BOOLEAN DEFAULT true,
+                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
