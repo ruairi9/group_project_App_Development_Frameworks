@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface PlanetRepository extends JpaRepository<Planet, Integer> {
     @Modifying
     @Transactional
-    @Query("DELETE FROM Planet p WHERE p.planet_id = :id")
-    int deleteById(@Param("id") int id);
+    @Query("DELETE FROM Planet p WHERE p.planet_id = :planet_id")
+    int deleteById(@Param("planet_id") int planet_id);
 }
