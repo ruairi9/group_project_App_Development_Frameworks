@@ -8,16 +8,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@AllArgsConstructor
+@RequestMapping("/planets")
 public class RestService {
 
-    private PlanetService planetService;
+    private final PlanetService planetService;
 
-    @GetMapping("/planets")
-    List<PlanetDTO> findAllCities(){
+    @GetMapping
+    public List<PlanetDTO> findAllPlanets() {
         return planetService.findAll();
     }
 
-    @DeleteMapping("/planets/{planet_id}")
+    @DeleteMapping("/{planet_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deletePlanetById(@PathVariable int planet_id){
         planetService.deleteById(planet_id);
