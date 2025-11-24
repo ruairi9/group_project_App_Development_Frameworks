@@ -17,7 +17,7 @@ public class PlanetServiceImpl implements PlanetService {
     public void deleteById(int id) {
         int rowsDeleted = planetRepository.deleteById(id);
         if(rowsDeleted== 0) {
-            throw new NotFoundException("Planet with id " + id + " was not found");//to do need to make the Exception code
+            throw new NotFoundException("Planet with id " + id + " was not found");
         }
     }
 }
