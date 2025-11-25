@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/moons")
-public class MoonController {
+@RequestMapping("/moons")
+public class RestMoonController {
 
     private final MoonRepository moonRepository;
 
-    public MoonController(MoonRepository moonRepository) {
+    public RestMoonController(MoonRepository moonRepository) {
         this.moonRepository = moonRepository;
     }
 
