@@ -1,7 +1,8 @@
 package org.example.group_project.services;
 
-import org.example.group_project.dtos.Mappers;
+import org.example.group_project.dtos.PlanetMappers;
 import org.example.group_project.dtos.PlanetDTO;
+import org.example.group_project.entities.Planet;
 import org.example.group_project.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.example.group_project.repositories.PlanetRepository;
@@ -14,9 +15,10 @@ import java.util.List;
 public class PlanetServiceImpl implements PlanetService {
     private PlanetRepository planetRepository;
 
+    @Override
     public List<PlanetDTO> findAll() {
         return planetRepository.findAll().stream()
-                .map(Mappers::mapPlanettoPlanetDTO)
+                .map(PlanetMappers::mapPlanettoPlanetDTO)
                 .toList();
     }
 
@@ -26,5 +28,10 @@ public class PlanetServiceImpl implements PlanetService {
         if(rowsDeleted== 0) {
             throw new NotFoundException("Planet with id " + planet_id + " was not found");
         }
+    }
+
+    @Override
+    public Planet save(Planet planet) {
+        return planetRepository.save(planet);
     }
 }
