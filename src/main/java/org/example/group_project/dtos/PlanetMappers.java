@@ -16,11 +16,11 @@ public class PlanetMappers {
     }
     public static Planet maptoEntity(PlanetCreateDTO dto){
         Planet p = new Planet();
-        p.setPlanetName(dto.planet_name());
-        p.setRadiusKm(dto.radius_km());
+        p.setPlanetName(dto.planetName());
+        p.setRadiusKm(dto.radiusKm());
         p.setType(dto.type());
-        p.setMassKg(dto.mass_kg());
-        p.setOrbitalPeriodDays(dto.orbital_period_days());
+        p.setMassKg(dto.massKg());
+        p.setOrbitalPeriodDays(dto.orbitalPeriodDays());
         return p;
     }
 

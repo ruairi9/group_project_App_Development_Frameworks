@@ -16,5 +16,11 @@ public interface PlanetService {
     Planet findByMassKg(double massKg);
     Planet findByOrbitalPeriodDays(int orbitalPeriodDays);
     void changePlanets(int id, String planetName, int radiusKm, String type, double massKg, int orbitalPeriodDays);
+    List<Integer> findAllPlanetIdOnly();
+    List<String> findAllPlanetNameOnly();
+    List<Integer> findAllPlanetRadiusOnly();
+    List<String> findAllPlanetTypeOnly();
+    List<Double> findAllPlanetMassOnly();
+    List<Integer> findAllPlanetOrbitalPeriodDaysOnly();
     void deleteById(int id);
 }

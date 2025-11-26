@@ -23,10 +23,10 @@ public class PlanetServiceImpl implements PlanetService {
     }
 
     @Override
-    public PlanetDTO findByPlanetId(int planet_id) {
-        Planet planet = planetRepository.findById(planet_id)
+    public PlanetDTO findByPlanetId(int planetId) {
+        Planet planet = planetRepository.findById(planetId)
                 .orElseThrow(() ->
-                        new NotFoundException("Planet with id " + planet_id + " was not found")
+                        new NotFoundException("Planet with id " + planetId + " was not found")
                 );
 
         return PlanetMappers.mapPlanettoPlanetDTO(planet);
@@ -82,12 +82,41 @@ public class PlanetServiceImpl implements PlanetService {
         planetRepository.save(planet);
     }
 
+    @Override
+    public List<Integer> findAllPlanetIdOnly() {
+        return planetRepository.findAllPlanetIdOnly();
+    }
 
     @Override
-    public void deleteById(int planet_id) {
-        int rowsDeleted = planetRepository.deleteById(planet_id);
+    public List<String> findAllPlanetNameOnly() {
+        return planetRepository.findAllPlanetNameOnly();
+    }
+
+    @Override
+    public List<Integer> findAllPlanetRadiusOnly() {
+        return planetRepository.findAllPlanetRadiusOnly();
+    }
+
+    @Override
+    public List<String> findAllPlanetTypeOnly() {
+        return planetRepository.findAllPlanetTypeOnly();
+    }
+
+    @Override
+    public List<Double> findAllPlanetMassOnly() {
+        return planetRepository.findAllPlanetMassOnly();
+    }
+
+    @Override
+    public List<Integer> findAllPlanetOrbitalPeriodDaysOnly() {
+        return planetRepository.findAllPlanetOrbitalPeriodDaysOnly();
+    }
+
+    @Override
+    public void deleteById(int planetId) {
+        int rowsDeleted = planetRepository.deleteById(planetId);
         if(rowsDeleted== 0) {
-            throw new NotFoundException("Planet with id " + planet_id + " was not found");
+            throw new NotFoundException("Planet with id " + planetId + " was not found");
         }
     }
 }

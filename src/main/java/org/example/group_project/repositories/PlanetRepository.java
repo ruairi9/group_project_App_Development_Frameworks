@@ -15,7 +15,7 @@ public interface PlanetRepository extends JpaRepository<Planet, Integer> {
     @Modifying
     @Transactional
     @Query("DELETE FROM Planet p WHERE p.planetId = :planet_id")
-    int deleteById(@Param("planet_id") int planet_id);
+    int deleteById(@Param("planet_id") int planetId);
 
     Optional<Planet> findByPlanetName(String planetName);
 
@@ -27,7 +27,22 @@ public interface PlanetRepository extends JpaRepository<Planet, Integer> {
 
     Optional<Planet> findByOrbitalPeriodDays(int orbitalPeriodDays);
 
-    //@Query("SELECT p.planetName FROM Planet p WHERE p.planetName IS NOT NULL")
-    //List<String> findAllPlanetName();
+    @Query("SELECT p.planetId FROM Planet p WHERE p.planetId IS NOT NULL")
+    List<Integer> findAllPlanetIdOnly();
 
+
+    @Query("SELECT p.planetName FROM Planet p WHERE p.planetName IS NOT NULL")
+    List<String> findAllPlanetNameOnly();
+
+    @Query("SELECT p.radiusKm FROM Planet p WHERE p.radiusKm IS NOT NULL")
+    List<Integer> findAllPlanetRadiusOnly();
+
+    @Query("SELECT p.type FROM Planet p WHERE p.type IS NOT NULL")
+    List<String> findAllPlanetTypeOnly();
+
+    @Query("SELECT p.massKg FROM Planet p WHERE p.massKg IS NOT NULL")
+    List<Double> findAllPlanetMassOnly();
+
+    @Query("SELECT p.orbitalPeriodDays FROM Planet p WHERE p.orbitalPeriodDays IS NOT NULL")
+    List<Integer> findAllPlanetOrbitalPeriodDaysOnly();
 }

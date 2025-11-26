@@ -27,8 +27,8 @@ public class RestPlanetService {
     }
 
     @GetMapping("/id/{planet_id}")
-    public PlanetDTO findPlanetById(@PathVariable ("planet_id") int planet_id) throws NotFoundException  {
-        return planetService.findByPlanetId(planet_id);
+    public PlanetDTO findPlanetById(@PathVariable ("planet_id") int planetId) throws NotFoundException  {
+        return planetService.findByPlanetId(planetId);
     }
 
     @PostMapping("/")
@@ -40,13 +40,13 @@ public class RestPlanetService {
     }
 
     @GetMapping("/name/{planet_name}")
-    public Planet findAllPlanetName(@PathVariable ("planet_name") String planet_name)  throws NotFoundException {
-        return planetService.findAllPlanetName(planet_name);
+    public Planet findAllPlanetName(@PathVariable ("planet_name") String planetName)  throws NotFoundException {
+        return planetService.findAllPlanetName(planetName);
     }
 
     @GetMapping("/radius/{radius_km}")
-    public Planet findByRadiusKm(@PathVariable ("radius_km") int radius_km)  throws NotFoundException {
-        return planetService.findByRadiusKm(radius_km);
+    public Planet findByRadiusKm(@PathVariable ("radius_km") int radiusKm)  throws NotFoundException {
+        return planetService.findByRadiusKm(radiusKm);
     }
 
     @GetMapping("/type/{type}")
@@ -64,19 +64,44 @@ public class RestPlanetService {
         return planetService.findByOrbitalPeriodDays(orbitalPeriodDays);
     }
 
-    //  @GetMapping("/{planet_name}")
-   // void findAllPlanetName(@PathVariable("planet_name" ) String planet_name) throws NotFoundException {
-    //    planetService.findAllPlanetName(planet_name);
-   // }
-
     @PatchMapping("/change/{planet_id}")
     public void updatePlanetRecord(@PathVariable("planet_id") int planetId, @Valid @RequestBody UpdatePlanetDTO dto) {
         planetService.changePlanets(planetId, dto.planetName(), dto.radiusKm(), dto.type(), dto.massKg(), dto.orbitalPeriodDays());
     }
 
+    @GetMapping("/id/only")
+    public List<Integer> findAllPlanetIdOnly() {
+        return planetService.findAllPlanetIdOnly();
+    }
+
+    @GetMapping("/name/only")
+    public List<String> findAllPlanetNameOnly() {
+        return planetService.findAllPlanetNameOnly();
+    }
+
+    @GetMapping("/radius/only")
+    public List<Integer> findAllPlanetRadiusOnly() {
+        return planetService.findAllPlanetRadiusOnly();
+    }
+
+    @GetMapping("/type/only")
+    public List<String> findAllPlanetTypeOnly() {
+        return planetService.findAllPlanetTypeOnly();
+    }
+
+    @GetMapping("/mass/only")
+    public List<Double> findAllPlanetMassOnly() {
+        return planetService.findAllPlanetMassOnly();
+    }
+
+    @GetMapping("/orbitalPeriodDays/only")
+    public List<Integer> findAllPlanetOrbitalPeriodDaysOnly() {
+        return planetService.findAllPlanetOrbitalPeriodDaysOnly();
+    }
+
     @DeleteMapping("/id/{planet_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deletePlanetById(@PathVariable("planet_id") int planet_id) throws NotFoundException {
-        planetService.deleteById(planet_id);
+    void deletePlanetById(@PathVariable("planet_id") int planetId) throws NotFoundException {
+        planetService.deleteById(planetId);
     }
 }

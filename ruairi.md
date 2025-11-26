@@ -7,3 +7,5 @@ I have is so all part but Retrieve specific fields of a planet (e.g., only name 
 of the application). are done
 
 I rename the value in Planet to be in camelcase this change some of the value in RestMoonController
+
+all part for planet are done for REST Planets
