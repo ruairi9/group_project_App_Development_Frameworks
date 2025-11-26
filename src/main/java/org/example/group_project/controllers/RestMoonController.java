@@ -28,8 +28,8 @@ public class RestMoonController {
             dto.setName(moon.getName());
             dto.setDiameterKm(moon.getDiameterKm());
             dto.setOrbitalPeriodDays(moon.getOrbitalPeriodDays());
-            dto.setPlanetId(moon.getPlanet().getPlanet_id());
-            dto.setPlanetName(moon.getPlanet().getPlanet_name());
+            dto.setPlanetId(moon.getPlanet().getPlanetId());
+            dto.setPlanetName(moon.getPlanet().getPlanetName());
             return dto;
         }).collect(Collectors.toList());
     }
@@ -44,8 +44,8 @@ public class RestMoonController {
         dto.setName(moon.getName());
         dto.setDiameterKm(moon.getDiameterKm());
         dto.setOrbitalPeriodDays(moon.getOrbitalPeriodDays());
-        dto.setPlanetId(moon.getPlanet().getPlanet_id()); // dont kno why this is saying planet_id instad of just planet id
-        dto.setPlanetName(moon.getPlanet().getPlanet_name());
+        dto.setPlanetId(moon.getPlanet().getPlanetId()); // dont kno why this is saying planet_id instad of just planet id
+        dto.setPlanetName(moon.getPlanet().getPlanetName());
         return dto;
     }
 

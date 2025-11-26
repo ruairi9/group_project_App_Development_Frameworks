@@ -6,21 +6,21 @@ public class PlanetMappers {
 
     public static PlanetDTO mapPlanettoPlanetDTO(Planet p) {
         return new PlanetDTO(
-                p.getPlanet_id(),
-                p.getPlanet_name(),
-                p.getRadius_km(),
+                p.getPlanetId(),
+                p.getPlanetName(),
+                p.getRadiusKm(),
                 p.getType(),
-                p.getMass_kg(),
-                p.getOrbital_period_days()
+                p.getMassKg(),
+                p.getOrbitalPeriodDays()
         );
     }
     public static Planet maptoEntity(PlanetCreateDTO dto){
         Planet p = new Planet();
-        p.setPlanet_name(dto.planet_name());
-        p.setRadius_km(dto.radius_km());
+        p.setPlanetName(dto.planet_name());
+        p.setRadiusKm(dto.radius_km());
         p.setType(dto.type());
-        p.setMass_kg(dto.mass_kg());
-        p.setOrbital_period_days(dto.orbital_period_days());
+        p.setMassKg(dto.mass_kg());
+        p.setOrbitalPeriodDays(dto.orbital_period_days());
         return p;
     }
 

@@ -8,6 +8,13 @@ import java.util.List;
 
 public interface PlanetService {
     List<PlanetDTO> findAll();
-    void deleteById(int id);
+    PlanetDTO findByPlanetId(int id);
     Planet save(Planet planet);
+    Planet findAllPlanetName(String planetName);
+    Planet findByRadiusKm(int radiusKm);
+    List<Planet> findByType(String type);
+    Planet findByMassKg(double massKg);
+    Planet findByOrbitalPeriodDays(int orbitalPeriodDays);
+    void changePlanets(int id, String planetName, int radiusKm, String type, double massKg, int orbitalPeriodDays);
+    void deleteById(int id);
 }

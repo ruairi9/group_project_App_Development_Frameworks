@@ -12,11 +12,12 @@ import lombok.NoArgsConstructor;
 public class Planet {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int planet_id;
-    private String planet_name;
-    private int radius_km;
+    private int planetId;
+    @Column(name = "planet_name")
+    private String planetName;
+    private int radiusKm;
     private String type;
-    private double mass_kg;
-    private int orbital_period_days;
+    private double massKg;
+    private int orbitalPeriodDays;
 
 }
