@@ -6,13 +6,13 @@ import jakarta.validation.constraints.NotEmpty;
 public record PlanetCreateDTO (
         @NotBlank(message = "planet name is needed")
         @NotEmpty(message = "planet name cannot be blank")
-        String planet_name,
-        int radius_km,
+        String planetName,
+        int radiusKm,
         @NotBlank(message = "type is needed")
         @NotEmpty(message = "type cannot be blank")
         String type,
-        double mass_kg,
-        int orbital_period_days)
+        double massKg,
+        int orbitalPeriodDays)
 {
 
 }
