@@ -19,8 +19,8 @@ public class MoonMapper {
                 m.getName(),
                 m.getDiameterKm(),
                 m.getOrbitalPeriodDays(),
-                m.getPlanet().getPlanet_id(),
-                m.getPlanet().getPlanet_name()
+                m.getPlanet().getPlanetId(),
+                m.getPlanet().getPlanetName()
         );
     }
 }

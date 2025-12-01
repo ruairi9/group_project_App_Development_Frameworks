@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/moons")
@@ -39,8 +40,8 @@ public class RestServiceMoon {
                         moon.getName(),
                         moon.getDiameterKm(),
                         moon.getOrbitalPeriodDays(),
-                        moon.getPlanet().getPlanet_id(),
-                        moon.getPlanet().getPlanet_name()
+                        moon.getPlanet().getPlanetId(),
+                        moon.getPlanet().getPlanetName()
                 ))
                 .toList();
     }
@@ -55,8 +56,8 @@ public class RestServiceMoon {
                 moon.getName(),
                 moon.getDiameterKm(),
                 moon.getOrbitalPeriodDays(),
-                moon.getPlanet().getPlanet_id(),
-                moon.getPlanet().getPlanet_name()
+                moon.getPlanet().getPlanetId(),
+                moon.getPlanet().getPlanetName()
         );
     }
 
@@ -80,5 +81,22 @@ public class RestServiceMoon {
         newMoon = moonService.save(newMoon);
         return MoonMapper.mapMoonToMoonDTO(newMoon);
     }
+
+    @GetMapping("/planet/{planetName}")
+    public List<MoonDTO> getMoonsByPlanetName(@PathVariable String planetName) {
+        return moonRepository.findByPlanet_PlanetName(planetName).stream()
+                .map(MoonMapper::mapMoonToMoonDTO)
+                .toList();}
+
+
+    @GetMapping("/count/planet/{planetId}")
+    public Map<String, Object> countMoonsByPlanet(@PathVariable Long planetId) {
+        long count = moonRepository.countByPlanet_PlanetId(planetId);
+        return Map.of(
+                "planetId", planetId,
+                "moonCount", count
+        );
+    }
+
 
 }

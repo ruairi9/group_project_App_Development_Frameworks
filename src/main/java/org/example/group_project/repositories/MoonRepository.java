@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface MoonRepository extends JpaRepository<Moon, Long> {
-
+    List<Moon> findByPlanet_PlanetName(String planetName);
+    long countByPlanet_PlanetId(Long planetId);
 }
