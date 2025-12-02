@@ -13,11 +13,13 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name="users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int user_id;
-    private String username;
+    @Column(name = "user_id")
+    private int userId;
+    @Column(name = "username")
+    private String userName;
     private String password;
     private String role;
     private boolean enabled;

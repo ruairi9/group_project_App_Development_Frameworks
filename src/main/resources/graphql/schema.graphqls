@@ -1,0 +1,26 @@
+# User DTO
+type UserDTO {
+    userId: ID!
+    userName: String!
+    password: String!
+    role: String!
+}
+
+# Queries
+type Query {
+    getUsernames: [String]
+    getPasswords: [String]
+    getRoles: [String]
+}
+
+# Input types for mutations
+input UserInput {
+    userName: String!
+    password: String!
+    role: String!
+}
+
+# Mutations
+type Mutation {
+    createUser(newUser: UserInput!): UserDTO
+}
