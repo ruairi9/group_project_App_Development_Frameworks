@@ -8,6 +8,7 @@ type UserDTO {
 
 # Queries
 type Query {
+    getUserById(id: ID!): UserDTO
     getUsernames: [String]
     getPasswords: [String]
     getRoles: [String]

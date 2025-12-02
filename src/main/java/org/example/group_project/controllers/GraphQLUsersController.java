@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.example.group_project.dtos.NewUserDTO;
 import org.example.group_project.dtos.UserDTO;
 import org.example.group_project.services.UserService;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -19,5 +20,10 @@ public class GraphQLUsersController {
     public UserDTO createUser(@Valid @Argument("newUser") NewUserDTO newUserDTO) {
         return usersService.save(newUserDTO);
     }
+    @QueryMapping
+    public UserDTO getUserById(@Argument int id) {
+        return usersService.findById(id);
+    }
+
 
 }

@@ -30,4 +30,11 @@ public class UserServiceImpl implements UserService {
 
         return UserMappers.mapUserToUserDTO(userRepository.save(user));
     }
+
+    @Override
+    public UserDTO findById(int id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found with id " + id));
+        return UserMappers.mapUserToUserDTO(user);
+    }
 }

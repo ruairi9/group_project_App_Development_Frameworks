@@ -5,4 +5,6 @@ import org.example.group_project.dtos.UserDTO;
 
 public interface UserService {
     UserDTO save(NewUserDTO user);
+    UserDTO findById(int id);
+
 }
