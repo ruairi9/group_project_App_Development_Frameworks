@@ -11,16 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SwaggerSecurityConfig {
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .addSecurityItem(new SecurityRequirement().addList("basicAuth"))
-                .components(new Components().addSecuritySchemes(
-                        "basicAuth",
-                        new SecurityScheme()
-                                .type(SecurityScheme.Type.HTTP)
-                                .scheme("basic")));
-    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){

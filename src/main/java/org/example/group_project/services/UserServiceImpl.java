@@ -8,6 +8,7 @@ import org.example.group_project.entities.User;
 import org.example.group_project.exceptions.NotFoundException;
 import org.example.group_project.repositories.UserRepository;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,13 +16,14 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO save(NewUserDTO newUserDTO) {
         User user = new User();
         user.setUserId(0);
         user.setUserName(newUserDTO.userName());
-        user.setPassword(newUserDTO.password());
+        user.setPassword(passwordEncoder.encode(newUserDTO.password()));
         user.setRole(newUserDTO.role());
         if (userRepository.existsByUserName(user.getUserName())) {
             throw new NotFoundException(user.getUserName() + " in "
