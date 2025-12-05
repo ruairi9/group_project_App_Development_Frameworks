@@ -11,3 +11,6 @@ I rename the value in Planet to be in camelcase this change some of the value in
 all part for planet are done for REST Planets
 
 add it in Create user (Mutation)
+
+add it Use a combination of centralized URL-based security config and @PreAuthorize
+annotations for fine-grained control.

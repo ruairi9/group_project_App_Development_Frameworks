@@ -6,6 +6,7 @@ import org.example.group_project.dtos.NewUserDTO;
 import org.example.group_project.dtos.UserDTO;
 import org.example.group_project.services.UserService;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -17,10 +18,13 @@ public class GraphQLUsersController {
     private final UserService usersService;
 
     @MutationMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public UserDTO createUser(@Valid @Argument("newUser") NewUserDTO newUserDTO) {
         return usersService.save(newUserDTO);
     }
+
     @QueryMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public UserDTO getUserById(@Argument int id) {
         return usersService.findById(id);
     }
