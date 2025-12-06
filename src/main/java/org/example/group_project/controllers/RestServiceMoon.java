@@ -11,12 +11,14 @@ import org.example.group_project.repositories.PlanetRepository;
 import org.example.group_project.services.MoonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@PreAuthorize("hasAnyRole('STUDENT','STAFF','ADMIN')")
 @RequestMapping("/moons")
 public class RestServiceMoon {
 
@@ -24,14 +26,14 @@ public class RestServiceMoon {
     private final MoonService moonService;
     private final PlanetRepository planetRepository;
 
-
-    public RestServiceMoon(MoonRepository moonRepository, MoonService moonService , PlanetRepository planetRepository) {
+    public RestServiceMoon(MoonRepository moonRepository, MoonService moonService,
+                           PlanetRepository planetRepository) {
         this.moonRepository = moonRepository;
         this.moonService = moonService;
         this.planetRepository = planetRepository;
     }
 
-    // /moons get is used to get the list of the moos
+    @PreAuthorize("hasAnyRole('STUDENT','STAFF','ADMIN')")
     @GetMapping
     public List<MoonDTO> getAllMoons() {
         return moonRepository.findAll().stream()
@@ -46,7 +48,7 @@ public class RestServiceMoon {
                 .toList();
     }
 
-    // getting the moon by its id  (not sure to use long which i found out is standard but for now ill stick with int)
+    @PreAuthorize("hasAnyRole('STUDENT','STAFF','ADMIN')")
     @GetMapping("/{id}")
     public MoonDTO getMoonById(@PathVariable Long id) {
         Moon moon = moonRepository.findById(id)
@@ -61,7 +63,7 @@ public class RestServiceMoon {
         );
     }
 
-    //Deletes the moon using its id
+    @PreAuthorize("hasAnyRole('STAFF','ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMoon(@PathVariable Long id) {
         if (!moonRepository.existsById(id)) {
@@ -71,24 +73,26 @@ public class RestServiceMoon {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('STAFF','ADMIN')")
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public MoonDTO createMoon(@Valid @RequestBody MoonCreateDTO moonCreateDTO) {
         Planet planet = planetRepository.findById(Math.toIntExact(moonCreateDTO.planetId()))
                 .orElseThrow(() -> new RuntimeException("Planet not found"));
         Moon newMoon = MoonMapper.mapToEntity(moonCreateDTO, planet);
-
         newMoon = moonService.save(newMoon);
         return MoonMapper.mapMoonToMoonDTO(newMoon);
     }
 
+    @PreAuthorize("hasAnyRole('STUDENT','STAFF','ADMIN')")
     @GetMapping("/planet/{planetName}")
     public List<MoonDTO> getMoonsByPlanetName(@PathVariable String planetName) {
         return moonRepository.findByPlanet_PlanetName(planetName).stream()
                 .map(MoonMapper::mapMoonToMoonDTO)
-                .toList();}
+                .toList();
+    }
 
-
+    @PreAuthorize("hasAnyRole('STUDENT','STAFF','ADMIN')")
     @GetMapping("/count/planet/{planetId}")
     public Map<String, Object> countMoonsByPlanet(@PathVariable Long planetId) {
         long count = moonRepository.countByPlanet_PlanetId(planetId);
@@ -97,6 +101,4 @@ public class RestServiceMoon {
                 "moonCount", count
         );
     }
-
-
 }
