@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.group_project.dtos.NewUserDTO;
 import org.example.group_project.dtos.UserDTO;
+import org.example.group_project.exceptions.BadRequestException;
+import org.example.group_project.exceptions.NotFoundException;
 import org.example.group_project.services.UserService;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
