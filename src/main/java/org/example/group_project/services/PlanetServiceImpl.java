@@ -3,12 +3,16 @@ package org.example.group_project.services;
 import org.example.group_project.dtos.PlanetMappers;
 import org.example.group_project.dtos.PlanetDTO;
 import org.example.group_project.entities.Planet;
+import org.example.group_project.exceptions.DatabaseException;
+import org.example.group_project.exceptions.DuplicateResourceException;
 import org.example.group_project.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.example.group_project.repositories.PlanetRepository;
 import org.springframework.stereotype.Service;
+import org.example.group_project.exceptions.ValidationException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -34,7 +38,11 @@ public class PlanetServiceImpl implements PlanetService {
 
     @Override
     public Planet save(Planet planet) {
-        return planetRepository.save(planet);
+        if (planetRepository.findByPlanetName(planet.getPlanetName()).isPresent()) {
+            throw new DuplicateResourceException("Planet with name " + planet.getPlanetName() + " already exists");
+        }
+        return Optional.of(planetRepository.save(planet))
+                .orElseThrow(() -> new DatabaseException("Failed to save planet"));
     }
 
     @Override
@@ -74,6 +82,15 @@ public class PlanetServiceImpl implements PlanetService {
     public void changePlanets(int id, String planetName, int radiusKm, String type, double massKg, int orbitalPeriodDays) {
         Planet planet = planetRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Planet with id " + id + " was not found"));
+        if (radiusKm <= 0) {
+            throw new ValidationException("Radius must be positive");
+        }
+        if (massKg <= 0) {
+            throw new ValidationException("Mass must be positive");
+        }
+        if (orbitalPeriodDays <= 0) {
+            throw new ValidationException("Orbital period must be positive");
+        }
         planet.setPlanetName(planetName);
         planet.setRadiusKm(radiusKm);
         planet.setType(type);
