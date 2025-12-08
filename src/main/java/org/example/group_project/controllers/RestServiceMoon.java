@@ -6,6 +6,7 @@ import org.example.group_project.dtos.MoonDTO;
 import org.example.group_project.dtos.MoonMapper;
 import org.example.group_project.entities.Moon;
 import org.example.group_project.entities.Planet;
+import org.example.group_project.exceptions.NotFoundException;
 import org.example.group_project.repositories.MoonRepository;
 import org.example.group_project.repositories.PlanetRepository;
 import org.example.group_project.services.MoonService;
@@ -52,7 +53,7 @@ public class RestServiceMoon {
     @GetMapping("/{id}")
     public MoonDTO getMoonById(@PathVariable Long id) {
         Moon moon = moonRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Moon does not exist"));
+                .orElseThrow(() -> new NotFoundException("Moon with id " + id + " was not found"));
         return new MoonDTO(
                 moon.getMoonId(),
                 moon.getName(),
@@ -67,7 +68,7 @@ public class RestServiceMoon {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMoon(@PathVariable Long id) {
         if (!moonRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException("Moon with id " + id + " not found");
         }
         moonRepository.deleteById(id);
         return ResponseEntity.noContent().build();
@@ -78,7 +79,9 @@ public class RestServiceMoon {
     @ResponseStatus(HttpStatus.CREATED)
     public MoonDTO createMoon(@Valid @RequestBody MoonCreateDTO moonCreateDTO) {
         Planet planet = planetRepository.findById(Math.toIntExact(moonCreateDTO.planetId()))
-                .orElseThrow(() -> new RuntimeException("Planet not found"));
+                .orElseThrow(() -> new NotFoundException(
+                        "Planet with id " + moonCreateDTO.planetId() + " not found"
+                ));
         Moon newMoon = MoonMapper.mapToEntity(moonCreateDTO, planet);
         newMoon = moonService.save(newMoon);
         return MoonMapper.mapMoonToMoonDTO(newMoon);

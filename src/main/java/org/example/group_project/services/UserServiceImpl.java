@@ -5,11 +5,15 @@ import org.example.group_project.dtos.NewUserDTO;
 import org.example.group_project.dtos.UserDTO;
 import org.example.group_project.dtos.UserMappers;
 import org.example.group_project.entities.User;
+import org.example.group_project.exceptions.DatabaseException;
+import org.example.group_project.exceptions.DuplicateResourceException;
 import org.example.group_project.exceptions.NotFoundException;
 import org.example.group_project.repositories.UserRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,11 +30,12 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(newUserDTO.password()));
         user.setRole(newUserDTO.role());
         if (userRepository.existsByUserName(user.getUserName())) {
-            throw new NotFoundException(user.getUserName() + " in "
-                    + " already exists");
+            throw new DuplicateResourceException(
+                    "User with username " + user.getUserName() + " already exists"
+            );
         }
-
-        return UserMappers.mapUserToUserDTO(userRepository.save(user));
+        return  Optional.of(UserMappers.mapUserToUserDTO(userRepository.save(user)))
+                .orElseThrow(() -> new DatabaseException("Failed to save user"));
     }
 
     @Override
