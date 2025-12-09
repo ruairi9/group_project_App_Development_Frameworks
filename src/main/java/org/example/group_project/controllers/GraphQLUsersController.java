@@ -20,13 +20,13 @@ public class GraphQLUsersController {
     private final UserService usersService;
 
     @MutationMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
+    @PreAuthorize("hasRole('ADMIN')")
     public UserDTO createUser(@Valid @Argument("newUser") NewUserDTO newUserDTO) {
         return usersService.save(newUserDTO);
     }
 
     @QueryMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
+    @PreAuthorize("hasRole('ADMIN')")
     public UserDTO getUserById(@Argument int id) {
         return usersService.findById(id);
     }
