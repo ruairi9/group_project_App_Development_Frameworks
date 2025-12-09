@@ -17,11 +17,11 @@ import java.util.Collections;
 @AllArgsConstructor
 public class MyUserDetailsService implements UserDetailsService {
 
-    private UserRepository userService;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        MyUser myUser = userService.findByUserName(username)
+        MyUser myUser = userRepository.findByUserName(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(myUser.getRole());
         return new User(

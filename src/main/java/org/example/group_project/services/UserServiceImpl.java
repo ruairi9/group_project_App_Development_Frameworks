@@ -9,7 +9,6 @@ import org.example.group_project.exceptions.DatabaseException;
 import org.example.group_project.exceptions.DuplicateResourceException;
 import org.example.group_project.exceptions.NotFoundException;
 import org.example.group_project.repositories.UserRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
