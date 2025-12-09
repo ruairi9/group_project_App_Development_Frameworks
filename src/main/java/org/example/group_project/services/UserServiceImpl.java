@@ -4,14 +4,15 @@ import lombok.AllArgsConstructor;
 import org.example.group_project.dtos.NewUserDTO;
 import org.example.group_project.dtos.UserDTO;
 import org.example.group_project.dtos.UserMappers;
-import org.example.group_project.entities.User;
+import org.example.group_project.entities.MyUser;
 import org.example.group_project.exceptions.DatabaseException;
 import org.example.group_project.exceptions.DuplicateResourceException;
 import org.example.group_project.exceptions.NotFoundException;
 import org.example.group_project.repositories.UserRepository;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Optional;
 
@@ -24,24 +25,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(NewUserDTO newUserDTO) {
-        User user = new User();
-        user.setUserId(0);
-        user.setUserName(newUserDTO.userName());
-        user.setPassword(passwordEncoder.encode(newUserDTO.password()));
-        user.setRole(newUserDTO.role());
-        if (userRepository.existsByUserName(user.getUserName())) {
+        MyUser myUser = new MyUser();
+        myUser.setUserId(0);
+        myUser.setUserName(newUserDTO.userName());
+        myUser.setPassword(passwordEncoder.encode(newUserDTO.password()));
+        myUser.setRole(newUserDTO.role());
+        if (userRepository.existsByUserName(myUser.getUserName())) {
             throw new DuplicateResourceException(
-                    "User with username " + user.getUserName() + " already exists"
+                    "User with username " + myUser.getUserName() + " already exists"
             );
         }
-        return  Optional.of(UserMappers.mapUserToUserDTO(userRepository.save(user)))
+        return  Optional.of(UserMappers.mapUserToUserDTO(userRepository.save(myUser)))
                 .orElseThrow(() -> new DatabaseException("Failed to save user"));
     }
 
     @Override
     public UserDTO findById(int id) {
-        User user = userRepository.findById(id)
+        MyUser myUser = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found with id " + id));
-        return UserMappers.mapUserToUserDTO(user);
+        return UserMappers.mapUserToUserDTO(myUser);
     }
 }

@@ -1,10 +1,10 @@
 package org.example.group_project.dtos;
 
-import org.example.group_project.entities.User;
+import org.example.group_project.entities.MyUser;
 
 public class UserMappers {
 
-    public static UserDTO mapUserToUserDTO(User u) {
+    public static UserDTO mapUserToUserDTO(MyUser u) {
         return new UserDTO(
                 u.getUserId(),
                 u.getUserName(),

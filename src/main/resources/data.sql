@@ -9,10 +9,10 @@ VALUES
     ('Uranus', 25559, 'Ice Giant', 8.69e25, 30687),
     ('Neptune', 24766, 'Ice Giant', 1.02e26, 60190),
     ('TRAPPIST-1 e', 5840, 'Terrestrial', 4.13e24, 5871),
-    ('PSR B1257+12 b', 2162, 'Terrestrial', 1.19e23, 25.3),-- is a PSR B1257+12 b (Draugr) and Terrestrial (pulsar planet)
-    ('PSR B1257+12 c', 12180, 'Terrestrial', 2.57e25, 66.54), -- Terrestrial (pulsar planet)
-    ('WASP-193 b', 104800, 'Gas Giant', 2.63e26, 6.25), -- (ultra-puffy)
-    ('Kepler-16 b', 58860, 'Gas Giant', 6.31e26, 228.78); -- (circumbinary)
+    ('PSR B1257+12 b', 2162, 'Terrestrial', 1.19e23, 25.3),
+    ('PSR B1257+12 c', 12180, 'Terrestrial', 2.57e25, 66.54),
+    ('WASP-193 b', 104800, 'Gas Giant', 2.63e26, 6.25),
+    ('Kepler-16 b', 58860, 'Gas Giant', 6.31e26, 228.78);
 
 
 INSERT INTO moons (moon_name, diameter_km, orbital_period_days, planet_id)
@@ -39,12 +39,10 @@ VALUES
     ('Proteus', 420, 1.12, 8);
 
 
-INSERT INTO users (username, password, role)
+INSERT INTO users (username, password, role, enabled)
 VALUES
-    ('I love moon', 'moon Iapetus is the best' , 'STUDENT'),
-    ('tom', 'the638c' , 'STAFF'),
-    ('I hate moon', 'tpsb2884%%m' , 'ADMIN'),
-    ('bob', '1234' , 'STUDENT');
-
-
-
+    ('student1', '$2a$10$6eNT2P1soEWSGT4pmUBNCu6ppdNVsZ/XS/JS4h0TR1Ky4Y6Pcwi.C', 'ROLE_STUDENT', true),
+    ('tom', '$2a$10$6eNT2P1soEWSGT4pmUBNCu6ppdNVsZ/XS/JS4h0TR1Ky4Y6Pcwi.C', 'ROLE_STAFF', true),
+    ('admin1', '$2a$10$6eNT2P1soEWSGT4pmUBNCu6ppdNVsZ/XS/JS4h0TR1Ky4Y6Pcwi.C', 'ROLE_ADMIN', true),
+    ('bob', '$2a$10$6eNT2P1soEWSGT4pmUBNCu6ppdNVsZ/XS/JS4h0TR1Ky4Y6Pcwi.C', 'ROLE_STUDENT', true);
+-- all password are 1234
